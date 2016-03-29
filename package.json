@@ -1,0 +1,22 @@
+{
+  "name": "luoo_downloader",
+  "version": "0.0.1",
+  "description": "Help luooer download his favouriate songs!",
+  "main": "popup.js",
+  "dependencies": {
+    "angular": "1.5.0",
+    "cheerio": ""
+  },
+  "devDependencies": {
+    "gulp": "gulpjs/gulp#4.0",
+    "gulp-uglify": "",
+    "gulp-browserify": "",
+    "gulp-minify": "",
+    "gulp-rename": ""
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Priest",
+  "license": "ISC"
+}

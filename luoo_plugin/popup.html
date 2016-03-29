@@ -1,0 +1,31 @@
+<!doctype html>
+<!--
+ This page is shown when the extension button is clicked, because the
+ "browser_action" field in manifest.json contains the "default_popup" key with
+ value "popup.html".
+ -->
+<html ng-app="luooApp">
+  <head>
+    <title>Downloader for luooer!</title>
+    <link rel="stylesheet" href="style.css">
+    <!--
+      - JavaScript and HTML must be in separate files: see our Content Security
+      - Policy documentation[1] for details and explanation.
+      -
+      - [1]: https://developer.chrome.com/extensions/contentSecurityPolicy
+     -->
+    <script src="./popup.js"></script>
+  </head>
+  <body ng-controller="luooController as luoo">
+    <header ng-if="luoo.user">
+      <h1>{{luoo.user.userName}}</h1>
+    </header>
+    <ul class="song-list" ng-if="luoo.userFavouriteSongs">
+      <li class="song" ng-repeat="song in luoo.userFavouriteSongs">
+        <span class="name">{{song.name}}</span>
+        <span class="artist">{{song.artist}}</span>
+        <a class="button" ng-click="download(song)">Download</a>
+      </li>
+    </ul>
+  </body>
+</html>
