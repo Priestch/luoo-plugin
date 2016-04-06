@@ -18,7 +18,7 @@
 </head>
 <body ng-controller="LuooController as luoo">
 <header ng-if="luoo.user">
-    <h1>{{luoo.user.userName}}</h1>
+    <h1>Hello, {{luoo.user.userName}}!</h1>
 </header>
 <ul class="song-list" ng-if="luoo.userFavouriteSongs">
     <li class="song" ng-repeat="song in luoo.userFavouriteSongs">

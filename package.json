@@ -12,7 +12,8 @@
     "gulp-uglify": "",
     "gulp-browserify": "",
     "gulp-minify": "",
-    "gulp-rename": ""
+    "gulp-rename": "",
+    "gulp-concat": ""
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

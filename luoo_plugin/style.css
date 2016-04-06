@@ -1,35 +1,37 @@
 body {
     font-family: "Segoe UI", "Lucida Grande", Tahoma, sans-serif;
     font-size: 100%;
-    width: 400px;
-    height: auto;
-
-    margin: 0;
-    padding: 15px;
 }
 
-.header {
-    margin: 10px 0;
-    padding-bottom: 10px;
+header {
+    width: 620px;
+    margin: 0 auto;
     border-bottom: 1px dashed #F2F2F2;
+
+    text-align: center;
 }
 
 .song-list {
-    list-style: none;
+    margin: 0 auto;
     padding: 0;
+    width: 620px;
+
+    list-style: none;
 }
 
 .song {
-    line-height: 30px;
+    position: relative;
     height: 36px;
+    box-sizing: border-box;
 
     padding: 6px;
     border-radius: 3px;
+}
 
-    .button {
-        display: inline-block;
-        border-radius: 3px;
-    }
+.song .button {
+    position: absolute;
+    top: 9px;
+    right: 6px;
 }
 
 .song .name {

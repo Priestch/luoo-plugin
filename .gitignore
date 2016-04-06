@@ -1,2 +1,5 @@
 .idea
 node_modules
+.DS_Store
+luoo_plugin/popup.js
+luoo_plugin/popup.js
