@@ -1,36 +1,33 @@
 (function () {
     angular.module('luooApp')
-        .controller('LuooController', LuooController);
+    .controller('LuooController', LuooController);
 
-    LuooController.$inject = ['luooService'];
+    LuooController.$inject = ['userRepository', 'luooService'];
 
-    function LuooController(luooService) {
+    function LuooController(userRepository, luooService) {
         var vm = this;
-
         vm.download = function (song) {
             console.log(song);
             luooService.downloadSong(song)
         };
 
+        activate();
+
         function activate() {
             getLoginUser().then(function () {
                 console.log('User ' + vm.user.userName + ' login successfully...');
 
-                getUserFavouriteSongs().then(function () {
+                getUserFavouriteSongs(vm.user.userId).then(function () {
                     console.log('Length of user ' + vm.user.userName + ' favourite songs is ' + vm.userFavouriteSongs.length)
                 })
 
             });
         }
 
-        activate();
-
-        return vm;
-
         function getLoginUser() {
-            return luooService.login().then(function (loginUser) {
+            return userRepository.initUser().then(function () {
                 console.log('init vm.user');
-                vm.user = loginUser;
+                vm.user = userRepository.user;
             })
         }
 

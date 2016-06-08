@@ -3,7 +3,9 @@
 
     angular.module('luooApp', []);
 
-    require('./luoo.constants.js');
+    require('./download.service.js');
+    require('./config.js');
     require('./luoo.service.js');
+    require('./luoo-user.repository.js');
     require('./luoo.controller.js');
 })();
