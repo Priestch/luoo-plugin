@@ -7,7 +7,7 @@
     function LuooController(userRepository, luooService) {
         var vm = this;
         vm.download = function (song) {
-            console.log(song);
+            console.log('Starting download', song.name, song.url);
             luooService.downloadSong(song)
         };
 

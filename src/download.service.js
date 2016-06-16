@@ -14,8 +14,9 @@
             function onSuccess() {
                 var songs = JSON.parse(xhr.response);
                 urlPattern = /single\/(\d+)$/
-                console.log(songs[urlPattern.exec(single.url)[1]]);
-                song = songs[urlPattern.exec(single.url)[1]]
+                var songId = urlPattern.exec(single.url)[1];
+                song = songs[songId];
+                console.log('Downloading', single.name, '(' + song.mp3 + ')');
                 chrome.downloads.download({filename: single.name + ".mp3", url: song.mp3}, downloadCallback);
             }
         }
