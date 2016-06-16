@@ -4,9 +4,9 @@
     angular.module('luooApp')
         .service('downloadService', downloadService);
 
-    downloadService.$inject = ['$http', '$q', 'configFactory'];
+    downloadService.$inject = ['$http', '$q'];
 
-    function downloadService($http, $q, configFactory) {
+    function downloadService($http, $q) {
         this.downloadSong = downloadSong;
 
         function downloadSong(single) {
