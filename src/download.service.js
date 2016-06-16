@@ -10,91 +10,21 @@
         this.downloadSong = downloadSong;
 
         function downloadSong(single) {
-            getDownloadURL(single).then(onSuccess);
+            data = {method: "GET", url: chrome.extension.getURL('/json/songs.json')}
+            var xhr = sentRequest(data, onSuccess);
 
-            function onSuccess(downloadURL) {
-                console.log(downloadURL);
-                chrome.downloads.download({filename: single.name + ".mp3", url: downloadURL}, downloadCallback);
+            function onSuccess() {
+                var songs = JSON.parse(xhr.response);
+                urlPattern = /single\/(\d+)$/
+                console.log(songs[urlPattern.exec(single.url)[1]]);
+                song = songs[urlPattern.exec(single.url)[1]]
+                chrome.downloads.download({filename: single.name + ".mp3", url: song.mp3}, downloadCallback);
             }
         }
+
 
         function downloadCallback(downloadId) {
             console.log(downloadId);
-        }
-
-        function getDownloadURL(single) {
-            var deferred = $q.defer();
-            var singleMetadataPromise = getMetadata(single);
-            var albumPagePromise = $http.get(single.url);
-
-            $q.all([singleMetadataPromise, albumPagePromise]).then(function (values) {
-                console.log(values);
-                var singleMetadata = values[0];
-                var albumPageResponse = values[1].data;
-                deferred.resolve(parseDownloadUrl(singleMetadata, albumPageResponse, configFactory.CDNPrefix));
-            });
-
-            return deferred.promise;
-        }
-
-        function getMetadata(single) {
-            var deferred = $q.defer();
-            getPlayUrl(single).then(onSuccess, onError);
-
-            return deferred.promise;
-
-            function onSuccess(playUrl) {
-                deferred.resolve(parseMetadataFromUrl(playUrl));
-            }
-
-            function onError() {
-                deferred.reject('Error occurred when get single metadata!');
-            }
-        }
-
-        function getPlayUrl(single) {
-            var deferred = $q.defer();
-
-            var data = {method: 'HEAD', url: single.url};
-            var request = sentRequest(data, onSuccess);
-
-            function onSuccess() {
-                deferred.resolve(request.responseURL)
-            }
-
-            return deferred.promise
-        }
-    }
-
-    function parseDownloadUrl(singleMetadata, response, CDNPrefix) {
-        console.log(response, 'download url');
-        var singleElements = $("#luooPlayerPlaylist .track-item", response);
-
-        var singleIndex = undefined;
-        angular.forEach(singleElements, function (element, index) {
-            if (angular.isUndefined(singleIndex)) {
-                var idSelector = 'track' + singleMetadata.singleId;
-                console.log(idSelector, element.attribs.id, typeof idSelector, typeof element.attribs.id);
-                if (element.attribs.id === idSelector) {
-                    singleIndex = index
-                }
-            }
-        });
-
-        singleIndex = singleIndex + 1;
-        var indexData = singleIndex > 10 ? singleIndex.toString() : '0' + singleIndex.toString()
-
-        return CDNPrefix + singleMetadata.albumId + '/' + indexData + ".mp3";
-    }
-
-    function parseMetadataFromUrl(url) {
-        var singleUrlPattern = /music\/(\d+)\?sid=(\d+)$/;
-        var result = singleUrlPattern.exec(url);
-        console.log(result, result[1], result[2]);
-
-        return {
-            'albumId': result[1],
-            'singleId': result[2]
         }
     }
 
