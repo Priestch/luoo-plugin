@@ -1,6 +1,4 @@
 (function () {
-    var $ = require('cheerio');
-
     angular.module('luooApp')
         .service('downloadService', downloadService);
 
