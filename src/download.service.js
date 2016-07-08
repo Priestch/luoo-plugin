@@ -8,14 +8,14 @@
         this.downloadSong = downloadSong;
 
         function downloadSong(single) {
-            data = {method: "GET", url: chrome.extension.getURL('/json/songs.json')}
+            var data = {method: "GET", url: chrome.extension.getURL('/json/songs.json')};
             var xhr = sentRequest(data, onSuccess);
 
             function onSuccess() {
                 var songs = JSON.parse(xhr.response);
-                urlPattern = /single\/(\d+)$/
+                var urlPattern = /single\/(\d+)$/;
                 var songId = urlPattern.exec(single.url)[1];
-                song = songs[songId];
+                var song = songs[songId];
                 console.log('Downloading', single.name, '(' + song.mp3 + ')');
                 chrome.downloads.download({filename: single.name + ".mp3", url: song.mp3}, downloadCallback);
             }
