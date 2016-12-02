@@ -18,6 +18,8 @@ gulp.task('watch', function (done) {
     return done();
 });
 
-gulp.task('default', function () {
-    return gulp.series('app')
+gulp.task('default', function (done) {
+    gulp.series('app');
+
+    return done();
 });
