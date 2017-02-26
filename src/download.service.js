@@ -2,41 +2,28 @@
     angular.module('luooApp')
         .service('downloadService', downloadService);
 
-    var songsJson;
-
-    function downloadService() {
+    downloadService.$inject = ["$http", "configFactory"];
+    function downloadService($http, configFactory) {
         this.downloadSong = downloadSong;
 
         function downloadSong(single) {
-            var data = {method: "GET", url: chrome.extension.getURL('/json/songs.json')};
-            var xhr = sentRequest(data, onSuccess);
+            console.log("download in service");
+            var urlPattern = /single\/(\d+)$/;
+            var songId = urlPattern.exec(single.url)[1];
 
-            function onSuccess() {
-                songsJson = JSON.parse(xhr.response);
-                var urlPattern = /single\/(\d+)$/;
-                var songId = urlPattern.exec(single.url)[1];
-                var song = songsJson[songId];
-                download({filename: song.title + ".mp3", url: song.mp3});
-            }
+            var songUrl = configFactory.backendServer + "api/songs/" + songId;
+            download_by_browser(songUrl, $http);
         }
     }
 
-    function download(downloadData) {
-        console.log('Downloading', downloadData.filename, 'from', downloadData.url);
-        chrome.downloads.download(downloadData, function (downloadId) {
-            console.log(downloadId);
-        });
-    }
-
-    function sentRequest(data, onSuccess) {
-        var x = new XMLHttpRequest();
-        x.open(data.method, data.url);
-        if (data.responseType) {
-            x.responseType = data.responseType;
+    function download_by_browser(songUrl, httpService) {
+        function onSuccess(response) {
+            var filename = response.data.title + ".mp4";
+            var downloadData = {filename: filename, url: response.data.url};
+            console.log('Downloading', downloadData.filename, 'from', downloadData.url);
+            chrome.downloads.download(downloadData, function (downloadId) {});
         }
-        x.onload = onSuccess;
-        x.send(null);
 
-        return x;
+        httpService.get(songUrl).then(onSuccess)
     }
 })();
