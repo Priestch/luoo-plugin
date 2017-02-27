@@ -18,7 +18,7 @@
 
     function download_by_browser(songUrl, httpService) {
         function onSuccess(response) {
-            var filename = response.data.title + ".mp4";
+            var filename = response.data.title + ".mp3";
             var downloadData = {filename: filename, url: response.data.url};
             console.log('Downloading', downloadData.filename, 'from', downloadData.url);
             chrome.downloads.download(downloadData, function (downloadId) {});
