@@ -4,17 +4,25 @@ body {
 }
 
 header {
-    width: 620px;
-    margin: 0 auto;
     border-bottom: 1px dashed #F2F2F2;
 
     text-align: center;
 }
 
-.song-list {
-    margin: 0 auto;
-    padding: 0;
+.popup {
+    width: 400px;
+    height: 300px;
+}
+
+.center {
     width: 620px;
+    margin: 0 auto;
+}
+
+
+.song-list {
+    padding: 0;
+    height: 720px;
 
     list-style: none;
 }
@@ -44,4 +52,35 @@ header {
 
 .song:hover {
     background-color: #F2F2F2;
+}
+
+
+.pagination {
+    list-style: none;
+    padding-left: 0;
+
+    text-align: center;
+}
+
+.pagination .page {
+    background-color: #f2f2f2;
+    color: #7d7d7d;
+    display: inline-block;
+    margin-right: 5px;
+    border-radius: 3px;
+    height: 25px;
+    line-height: 25px;
+    min-width: 26px;
+
+    cursor: pointer;
+}
+
+.pagination .page:hover {
+    background-color: #dd5862;
+    color: #ffffff;
+}
+
+.pagination .active{
+    background-color: #dd5862;
+    color: #ffffff;
 }

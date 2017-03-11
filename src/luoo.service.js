@@ -4,20 +4,29 @@
     angular.module('luooApp')
         .service('luooService', luooService);
 
-    luooService.$inject = ['$q', '$http', 'downloadService', 'configFactory'];
+    luooService.$inject = ['$q', '$http', 'downloadService', 'configFactory', 'userRepository'];
 
-    function luooService($q, $http, downloadService, configFactory) {
-        this.login = login;
+    function luooService($q, $http, downloadService, configFactory, userRepository) {
         this.getUserFavouriteSongs = getUserFavouriteSongs;
+        this.getPaginationCount = getPaginationCount;
+        this.getFavouriteSongsPerPage = getFavouriteSongsPerPage;
         this.downloadSong = downloadService.downloadSong;
 
-        function login () {
-            return $http.get(configFactory.loginUrl);
+        activate();
+
+        var user = userRepository.user;
+
+        var profileUrl, deferredProfilePage;
+
+        function activate() {
+            userRepository.initUser().then(function () {
+                profileUrl = configFactory.profilePrefix + userRepository.user.userId;
+                deferredProfilePage = $http.get(profileUrl);
+            });
         }
 
-        function getUserFavouriteSongs (userId) {
-            var profileUrl = configFactory.profilePrefix + userId;
-            $http.get(profileUrl).then(onSuccess, onError);
+        function getUserFavouriteSongs(page) {
+            deferredProfilePage.then(onSuccess, onError);
 
             var deferredSongs = $q.defer();
             return deferredSongs.promise;
@@ -31,9 +40,33 @@
             }
         }
 
-        function getPaginatorCount(response) {
-            var pageElements = $("paginator .page", response);
-            return pageElements.length;
+        function getFavouriteSongsPerPage(pageNumber) {
+            var pageUrl = configFactory.profilePagePrefix + "?p=" + pageNumber;
+            $http.get(pageUrl).then(onSuccess, onError);
+
+            var deferredSongsPerPage = $q.defer();
+            return deferredSongsPerPage.promise;
+
+            function onSuccess(response) {
+                deferredSongsPerPage.resolve(parseFavSingles(response.data));
+            }
+
+            function onError() {
+                var message = 'Error occurred when get {} favourite songs, page: {}!'.format(userRepository.user.userName, pageNumber);
+                deferredSongsPerPage.reject(message);
+            }
+        }
+
+        function getPaginationCount() {
+            deferredProfilePage.then(onSuccess);
+
+            var deferredCount = $q.defer();
+            return deferredCount.promise;
+
+            function onSuccess(response) {
+                var pageElements = $(".paginator .page", response.data);
+                deferredCount.resolve(pageElements.length);
+            }
         }
     }
 

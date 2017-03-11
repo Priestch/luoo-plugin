@@ -2,9 +2,9 @@
     angular.module('luooApp')
         .factory('userRepository', userRepository);
 
-    userRepository.$inject = ['$q', 'luooService'];
+    userRepository.$inject = ['$http', '$q', 'configFactory'];
 
-    function userRepository($q, luooService) {
+    function userRepository($http, $q, configFactory) {
         var deferredUser = $q.defer();
 
         var repository = {
@@ -16,9 +16,7 @@
 
         function initUser() {
             var user = this.user;
-            luooService.login()
-                .then(onSuccess)
-                .catch(onError);
+            $http.get(configFactory.loginUrl).then(onSuccess).catch(onError);
 
             return deferredUser.promise;
 

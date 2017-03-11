@@ -17,16 +17,27 @@ value "popup.html".
 <script src="./popup.js"></script>
 </head>
 <body ng-controller="LuooController as luoo">
-    <header ng-if="luoo.user">
+    <header class="center" ng-if="luoo.user">
         <h1>Hello, {{luoo.user.userName}}!</h1>
     </header>
 
-    <ul class="song-list" ng-if="luoo.userFavouriteSongs">
+    <ul class="center song-list" ng-if="luoo.userFavouriteSongs">
         <li class="song" ng-repeat="song in luoo.userFavouriteSongs">
             <span class="name">{{song.name}}</span>
             <span class="artist">{{song.artist}}</span>
             <button class="button" ng-click="luoo.download(song)">Download</button>
         </li>
     </ul>
+
+    <nav class="center">
+        <ul class="pagination">
+            <li class="page" ng-repeat="page in luoo.pages"
+                ng-class="{active: page.active}"
+                ng-bind="page.value"
+                ng-click="luoo.changePage(page)">
+
+            </li>
+        </ul>
+    </nav>
 </body>
 </html>

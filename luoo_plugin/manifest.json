@@ -15,7 +15,7 @@
         "downloads",
         "cookies",
         "http://*.luoo.net/*",
-        "http://localhost:5000/*"
+        "http://localhost:8000/*"
     ],
     "web_accessible_resources": [
         "json/*"
