@@ -2,8 +2,8 @@
     "manifest_version": 2,
 
     "name": "Luoo",
-    "description": "This extension help luooer download his favourite songs!",
-    "version": "1.0",
+    "description": "Help to download favourite songs from www.luoo.net",
+    "version": "0.0.1",
 
     "options_page": "options.html",
     "browser_action": {
@@ -13,11 +13,7 @@
     },
     "permissions": [
         "downloads",
-        "cookies",
         "http://*.luoo.net/*",
-        "http://localhost:8000/*"
-    ],
-    "web_accessible_resources": [
-        "json/*"
+        "http://priestch.com:5000/*"
     ]
 }

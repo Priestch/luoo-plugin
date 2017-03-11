@@ -7,7 +7,6 @@
     function LuooController(userRepository, luooService) {
         var vm = this;
         vm.download = function (song) {
-            console.log('Starting download', song.name, song.url);
             luooService.downloadSong(song)
         };
 
@@ -20,15 +19,12 @@
         }
 
         function initUser() {
-            console.log('User ' + vm.user.userName + ' login successfully...');
-
             getFavouriteSongs();
             getPagination();
         }
 
         function getLoginUser() {
             return userRepository.initUser().then(function () {
-                console.log('init vm.user');
                 vm.user = userRepository.user;
             })
         }
@@ -36,7 +32,6 @@
         function getFavouriteSongs() {
             luooService.getUserFavouriteSongs().then(function (userFavouriteSongs) {
                 vm.userFavouriteSongs = userFavouriteSongs;
-                console.log('Length of user ' + vm.user.userName + ' favourite songs is ' + vm.userFavouriteSongs.length)
             });
         }
 

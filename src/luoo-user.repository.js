@@ -22,7 +22,6 @@
 
             function onSuccess(response) {
                 var responseData = response.data;
-                console.log(responseData);
                 user.userName = responseData.data.user_name;
                 user.userId = responseData.data.uid;
                 user.userAvatar = responseData.data.user_avatar;

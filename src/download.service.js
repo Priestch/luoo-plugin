@@ -7,7 +7,6 @@
         this.downloadSong = downloadSong;
 
         function downloadSong(single) {
-            console.log("download in service");
             var urlPattern = /single\/(\d+)$/;
             var songId = urlPattern.exec(single.url)[1];
 
@@ -20,7 +19,6 @@
         function onSuccess(response) {
             var filename = response.data.title + ".mp3";
             var downloadData = {filename: filename, url: response.data.url};
-            console.log('Downloading', downloadData.filename, 'from', downloadData.url);
             chrome.downloads.download(downloadData, function (downloadId) {});
         }
 
