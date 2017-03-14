@@ -2,6 +2,8 @@
 .DS_Store
 npm-debug.log
 
+*.pem
+
 node_modules
 virtualenv
 

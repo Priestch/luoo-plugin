@@ -3,7 +3,7 @@
 
     "name": "Luoo",
     "description": "Help to download favourite songs from www.luoo.net",
-    "version": "0.0.1",
+    "version": "0.0.2.0",
 
     "options_page": "options.html",
     "browser_action": {
