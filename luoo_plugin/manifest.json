@@ -14,6 +14,6 @@
     "permissions": [
         "downloads",
         "http://*.luoo.net/*",
-        "http://priestch.com:5000/*"
+        "http://priestch.com/*"
     ]
 }
