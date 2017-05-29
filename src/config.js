@@ -6,7 +6,7 @@
         return {
             loginUrl: "http://www.luoo.net/login/user",
             profilePrefix: "http://www.luoo.net/user/",
-            backendServer: "http://priestch.com:5000/",
+            backendServer: "http://priestch.com/",
             profilePagePrefix: "http://www.luoo.net/user/singles"
         }
     }
