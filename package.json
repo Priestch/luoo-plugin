@@ -16,6 +16,7 @@
     "gulp-concat": ""
   },
   "scripts": {
+    "build": "gulp app",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Priest",
